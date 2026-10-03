@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>RRR | Rent • Reuse • Return</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<header class="navbar">
+    <div class="brand">
+        <div class="logo">RRR</div>
+        <div>
+            <h1>RRR</h1>
+            <span>Rent • Reuse • Return</span>
+        </div>
+    </div>
+
+    <nav>
+        <button onclick="showSection('home')">Home</button>
+        <button onclick="showSection('browse')">Browse</button>
+        <button onclick="showSection('add')">List Item</button>
+        <button onclick="showSection('dashboard')">My Items</button>
+    </nav>
+</header>
+
+<main>
+
+<!-- HOME -->
+<section id="home" class="section active">
+
+    <div class="hero">
+        <div class="hero-content">
+            <span class="badge">🎓 College Sharing Platform</span>
+
+            <h2>
+                Don't Buy.<br>
+                <span>Rent. Borrow. Reuse.</span>
+            </h2>
+
+            <p>
+                Save money, share useful things and reduce waste.
+                Find items from students around your campus.
+            </p>
+
+            <div class="hero-buttons">
+                <button class="primary" onclick="showSection('browse')">
+                    Browse Items
+                </button>
+
+                <button class="secondary" onclick="showSection('add')">
+                    + List an Item
+                </button>
+            </div>
+        </div>
+
+        <div class="hero-card">
+            <div class="floating-icon">♻️</div>
+            <h3>One Campus</h3>
+            <p>Thousands of useful things already around you.</p>
+
+            <div class="mini-stats">
+                <div>
+                    <strong id="heroItems">0</strong>
+                    <span>Items</span>
+                </div>
+
+                <div>
+                    <strong>₹</strong>
+                    <span>Save Money</span>
+                </div>
+
+                <div>
+                    <strong>♻</strong>
+                    <span>Reuse</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="section-title">
+        <span>EXPLORE</span>
+        <h2>What are you looking for?</h2>
+    </div>
+
+    <div class="categories">
+        <button onclick="filterCategory('Books')">📚 Books</button>
+        <button onclick="filterCategory('Electronics')">💻 Electronics</button>
+        <button onclick="filterCategory('Furniture')">🪑 Furniture</button>
+        <button onclick="filterCategory('Sports')">⚽ Sports</button>
+        <button onclick="filterCategory('Stationery')">✏️ Stationery</button>
+        <button onclick="filterCategory('Other')">📦 Other</button>
+    </div>
+
+</section>
+
+
+<!-- BROWSE -->
+<section id="browse" class="section">
+
+    <div class="page-heading">
+        <span class="badge">DISCOVER</span>
+        <h2>Browse Items</h2>
+        <p>Find something useful without buying something new.</p>
+    </div>
+
+    <div class="search-area">
+        <input
+            type="text"
+            id="searchInput"
+            placeholder="🔍 Search books, calculators, cycles..."
+            oninput="displayItems()"
+        >
+
+        <select id="categoryFilter" onchange="displayItems()">
+            <option value="All">All Categories</option>
+            <option value="Books">Books</option>
+            <option value="Electronics">Electronics</option>
+            <option value="Furniture">Furniture</option>
+            <option value="Sports">Sports</option>
+            <option value="Stationery">Stationery</option>
+            <option value="Other">Other</option>
+        </select>
+    </div>
+
+    <div id="itemsGrid" class="items-grid"></div>
+
+</section>
+
+
+<!-- ADD ITEM -->
+<section id="add" class="section">
+
+    <div class="page-heading">
+        <span class="badge">SHARE</span>
+        <h2>List Your Item</h2>
+        <p>Someone on campus might need something you're not using.</p>
+    </div>
+
+    <form id="itemForm" class="item-form">
+
+        <div class="form-group">
+            <label>Item Name</label>
+            <input
+                id="itemName"
+                type="text"
+                placeholder="Example: Engineering Drawing Kit"
+                required
+            >
+        </div>
+
+        <div class="form-row">
+
+            <div class="form-group">
+                <label>Category</label>
+
+                <select id="itemCategory" required>
+                    <option value="">Select category</option>
+                    <option>Books</option>
+                    <option>Electronics</option>
+                    <option>Furniture</option>
+                    <option>Sports</option>
+                    <option>Stationery</option>
+                    <option>Other</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>Type</label>
+
+                <select id="itemType" required>
+                    <option value="Rent">Rent</option>
+                    <option value="Borrow">Borrow</option>
+                </select>
+            </div>
+
+        </div>
+
+        <div class="form-row">
+
+            <div class="form-group">
+                <label>Price per day (₹)</label>
+
+                <input
+                    id="itemPrice"
+                    type="number"
+                    min="0"
+                    placeholder="0 for free borrowing"
+                    required
+                >
+            </div>
+
+            <div class="form-group">
+                <label>Deposit (₹)</label>
+
+                <input
+                    id="itemDeposit"
+                    type="number"
+                    min="0"
+                    placeholder="Optional"
+                    value="0"
+                >
+            </div>
+
+        </div>
+
+        <div class="form-group">
+            <label>Location / Campus</label>
+
+            <input
+                id="itemLocation"
+                type="text"
+                placeholder="Example: ABC College Hostel"
+                required
+            >
+        </div>
+
+        <div class="form-group">
+            <label>Description</label>
+
+            <textarea
+                id="itemDescription"
+                rows="4"
+                placeholder="Describe the condition and details of your item..."
+                required
+            ></textarea>
+        </div>
+
+        <button class="primary full" type="submit">
+            ♻️ Publish Item
+        </button>
+
+    </form>
+
+</section>
+
+
+<!-- DASHBOARD -->
+<section id="dashboard" class="section">
+
+    <div class="page-heading">
+        <span class="badge">YOUR SPACE</span>
+        <h2>My Dashboard</h2>
+        <p>Manage the items you have shared.</p>
+    </div>
+
+    <div class="dashboard-stats">
+
+        <div class="stat-card">
+            <span>📦</span>
+            <strong id="totalItems">0</strong>
+            <small>My Listings</small>
+        </div>
+
+        <div class="stat-card">
+            <span>❤️</span>
+            <strong id="savedItems">0</strong>
+            <small>Saved Items</small>
+        </div>
+
+        <div class="stat-card">
+            <span>♻️</span>
+            <strong>RRR</strong>
+            <small>Reuse More</small>
+        </div>
+
+    </div>
+
+    <h3 class="subheading">My Listings</h3>
+
+    <div id="myItems" class="items-grid"></div>
+
+</section>
+
+</main>
+
+
+<!-- ITEM MODAL -->
+<div id="itemModal" class="modal">
+
+    <div class="modal-content">
+
+        <button class="close" onclick="closeModal()">×</button>
+
+        <div id="modalIcon" class="modal-icon">📦</div>
+
+        <span id="modalCategory" class="badge"></span>
+
+        <h2 id="modalName"></h2>
+
+        <p id="modalDescription"></p>
+
+        <div class="modal-info">
+
+            <div>
+                <span>Type</span>
+                <strong id="modalType"></strong>
+            </div>
+
+            <div>
+                <span>Price</span>
+                <strong id="modalPrice"></strong>
+            </div>
+
+            <div>
+                <span>Deposit</span>
+                <strong id="modalDeposit"></strong>
+            </div>
+
+            <div>
+                <span>Location</span>
+                <strong id="modalLocation"></strong>
+            </div>
+
+        </div>
+
+        <button class="primary full" onclick="requestItem()">
+            Request Item
+        </button>
+
+    </div>
+
+</div>
+
+
+<div id="toast" class="toast"></div>
+
+<script src="script.js"></script>
+
+</body>
+</html>
